@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="OKAP TV — minimalistický HLS televizní přehrávač." />
+  <title>OKAP TV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./design/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body class="isPaused">
+  <main id="app" class="app" aria-label="OKAP TV">
+    <video id="video" playsinline webkit-playsinline muted></video>
+
+    <div class="Vignette" aria-hidden="true"></div>
+    <div class="LoadingSpinner" id="loading" aria-hidden="true"></div>
+    <div class="ErrorToast" id="errorToast" role="alert" aria-live="assertive"></div>
+    <div class="UnmuteHint" id="unmuteHint" aria-hidden="true">Klikněte kamkoli pro zapnutí zvuku</div>
+
+    <section class="CenterPlayOverlay" id="centerPlayOverlay" aria-label="Ovládání přehrávače">
+      <div class="ChannelInfo" id="channelInfo" aria-live="polite">
+        <span id="channelName"></span>
+        <img id="channelLogo" src="" alt="" />
+      </div>
+
+      <div class="CenterButtonsRow">
+        <div class="CenterSpacerLeft" aria-hidden="true"></div>
+
+        <button class="CenterPlayBtn" id="centerPlayBtn" type="button" aria-label="Přehrát / pozastavit" title="Přehrát / pozastavit (Enter)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"></svg>
+        </button>
+
+        <button class="CenterCircleBtn" id="gridBtn" type="button" aria-label="Seznam kanálů" title="Seznam kanálů (G)">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+          </svg>
+        </button>
+
+        <div class="VolumeWrapper" id="volumeWrapper">
+          <button class="CenterCircleBtn" id="muteBtn" type="button" aria-label="Hlasitost" title="Hlasitost (M)">
+            <svg id="volumeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+          </button>
+          <div class="VolumeSliderPopup" id="volumePopup">
+            <div class="VolumeSliderContainer">
+              <input id="volumeSlider" type="range" min="0" max="100" value="100" aria-label="Hlasitost" />
+            </div>
+          </div>
+        </div>
+
+        <button class="CenterCircleBtn" id="fullscreenBtn" type="button" aria-label="Celá obrazovka" title="Celá obrazovka (F)">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <section class="GridOverlay" id="gridOverlay" role="dialog" aria-modal="true" aria-label="Seznam kanálů" aria-hidden="true">
+      <div class="GridContainer" id="gridContainer"></div>
+    </section>
+  </main>
+</body>
+</html>
