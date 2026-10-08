@@ -44,7 +44,7 @@ export function createView() {
       item.dataset.index = String(index);
       item.setAttribute("aria-label", channel.name);
       item.title = channel.name;
-      item.innerHTML = `<img src="${channel.logo}" alt="" draggable="false" loading="eager" decoding="async" /></img>`;
+      item.innerHTML = `<img src="${channel.logo}" alt="" draggable="false" loading="eager" decoding="async">`;
       item.addEventListener("mouseenter", () => onHover(index, false));
       item.addEventListener("focus", () => onHover(index, false));
       item.addEventListener("click", (event) => {
@@ -72,12 +72,15 @@ export function createView() {
     }
   }
 
+  function focusHover() {
+    const index = gridItems.findIndex((item) => item.classList.contains("hovered"));
+    if (index >= 0) gridItems[index].focus({ preventScroll: true });
+  }
+
   function setGridOpen(open) {
     els.overlay.classList.toggle("active", open);
     els.overlay.setAttribute("aria-hidden", String(!open));
-    if (open) {
-      els.gridItems?.[0]?.focus();
-    }
+    if (open) focusHover();
   }
 
   function gridIsOpen() {
